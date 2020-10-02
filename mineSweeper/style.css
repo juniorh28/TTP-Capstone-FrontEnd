@@ -1,0 +1,21 @@
+/*styles the grid*/
+.grid {
+    height: 400px;
+    /*10x10 grid 40px height and width*/
+    width: 400px;
+    display: flex;
+    /*the square display inline not stacked over each other*/
+    flex-wrap: wrap;
+    /*wrap over each otehr so they fit in the grid*/
+    background-color: grey;
+}
+
+/*style all divs inside of the grid*/
+.grid div {
+    height: 40px;
+    width: 40px;
+}
+
+.bomb {
+    background-color: orange;
+}
