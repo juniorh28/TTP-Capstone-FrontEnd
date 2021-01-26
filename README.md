@@ -1,7 +1,7 @@
-  <h1 align="center">TTP Backend Template</h1>
+  <h1 align="center">TTP FrontEnd Template</h1>
 
   <p align="center">
-    Everything important to guide you to set up and get your backend server running and serving routes
+    Everything important to guide you to set up and get your Front End
     <br />
     <br />
     <!-- ·
@@ -37,11 +37,12 @@
 
 ### Built With
 
-| Package                                       | Docs                                               |
-| --------------------------------------------- | -------------------------------------------------- |
-| [Express](https://expressjs.com/)             | [:notebook:](https://expressjs.com/en/4x/api.html) |
-| [PostgresSQL](https://www.postgresql.org/)    | [:notebook:](https://www.postgresql.org/docs/)     |
-| [Sequelize V6](https://sequelize.org/master/) | [:notebook:](https://sequelize.org/master/)        |
+| Package                                  | Docs                                                                             |
+| ---------------------------------------- | -------------------------------------------------------------------------------- |
+| [React](https://reactjs.org/)            | [:notebook:](https://reactjs.org/docs/getting-started.html)                      |
+| [Redux](https://redux.js.org/)           | [:notebook:](https://redux.js.org/tutorials/essentials/part-1-overview-concepts) |
+| [React-Router](https://reactrouter.com/) | [:notebook:](https://reactrouter.com/web/guides/quick-start)                     |
+| [Axios](https://github.com/axios/axios)  | [:notebook:](https://github.com/axios/axios)                                     |
 
 <!-- GETTING STARTED -->
 
@@ -56,7 +57,7 @@ To get a local copy up and running follow these simple example steps.
 1. Clone the repo
 
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/DBorhara/ttp-frontend-scaffold.git
    ```
 
 2. Install NPM packages
@@ -65,21 +66,7 @@ To get a local copy up and running follow these simple example steps.
    npm install
    ```
 
-3. Create your postgresSQL database (`MY_APP_NAME` should match the `name`
-   parameter in `package.json`):
-
-   ```sh
-   export MY_APP_NAME=backendscaffold
-   createdb MY_APP_NAME
-   ```
-
-4. Seed your database with dummy data
-
-   ```sh
-   npm run seed
-   ```
-
-5. Start your app up by running
+3. Start your app up by running
 
    ```sh
    npm start
@@ -97,4 +84,4 @@ Distributed under the ISC License.
 
 Depak Borhara - [@dborhara](https://twitter.com/Dborhara) - depakborhara@gmail.com
 
-Project Link: [https://github.com/DBorhara/ttp-backend-scaffold](https://github.com/DBorhara/ttp-backend-scaffold)
+Project Link: [https://github.com/DBorhara/ttp-frontend-scaffold](https://github.com/DBorhara/ttp-frontend-scaffold)
