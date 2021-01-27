@@ -2,6 +2,8 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
+import Map from './Map';
+
 import { fetchAllPlacesThunk } from "../../../redux/places/places.actions";
 import { AllPlacesView } from "../views";
 
@@ -12,7 +14,10 @@ class AllPlacesContainer extends Component {
   }
 
   render() {
-    return <AllPlacesView allPlaces={this.props.allPlaces} id="All Places" />;
+    return( 
+    <AllPlacesView allPlaces={this.props.allPlaces} id="All Places" />,
+      <Map/>
+    )
   }
 }
 
