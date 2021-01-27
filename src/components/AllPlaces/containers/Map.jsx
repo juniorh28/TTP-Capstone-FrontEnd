@@ -5,6 +5,9 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import { Route, Switch, Link } from 'react-router-dom';
+
+import HomeContainer from './HomeContainer';
 
 
 
@@ -44,6 +47,11 @@ export class MapContainer extends Component {
         
       return (
           <div id = "google-map">
+          <div id= 'Homebtn'>
+          <Link to="/">
+          <button>Home</button>
+          </Link>
+          </div>
           <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleChange}
@@ -92,6 +100,8 @@ export class MapContainer extends Component {
                 lat : this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
             }}
+
+            style = {styles}
         >
           <Marker
               position = {{
@@ -106,6 +116,10 @@ export class MapContainer extends Component {
     }
   }
 
+  const styles = {
+    width : '50%',
+    height : '500px'
+  }
   export default GoogleApiWrapper({
     apiKey: ('AIzaSyANh8chPbOFMS_0ecTl-VENfAvgD5N2sJM')
   })(MapContainer)
