@@ -21,6 +21,7 @@ const AllPlacesView = (props) => {
           <p>{place.borough}</p>
           <p>{place.category}</p>
           <p>{place.numOfLikes}</p>
+          <Link to={`/all/${place.id}`}>View More Info</Link>
         </div>
       ))}
       {props.allPlaces.length === 0 ? <p>No Places Found</p> : ""}
