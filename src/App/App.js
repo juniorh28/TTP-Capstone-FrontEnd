@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import './App.css';
-import RoutesContainer from '../components/AllPlayers/routes/RoutesContainer';
+import React, { Component } from "react";
+import "./App.css";
+import RoutesContainer from "../components/AllPlaces/routes/RoutesContainer";
 
 class App extends Component {
   render() {

@@ -2,22 +2,31 @@ import React, { Component } from "react";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 
-import {
-  fetchAllPlacesThunk,
-  fetchAllPlacesByBoroughThunk,
-  fetchAllPlacesByCategoryThunk,
-} from "../../../redux/places/places.actions";
+import { fetchAllPlacesByCategoryThunk } from "../../../redux/places/places.actions";
 import { AllPlacesView } from "../views";
 
 // Smart container;
-class AllPlacesContainer extends Component {
+class AllPlacesByCategoryContainer extends Component {
   componentDidMount() {
-    this.props.fetchAllPlaces("parks");
-    console.log(this.props);
+    console.log("about to fetch data");
+    let category = this.props.match.params.id;
+    console.log(category);
+    this.props.fetchAllPlaces(category);
+  }
+
+  componentDidUpdate(prevProps) {
+    let oldId = prevProps.match.params.id;
+    let category = this.props.match.params.id;
+    if (oldId !== category) this.props.fetchAllPlaces(category);
   }
 
   render() {
-    return <AllPlacesView allPlaces={this.props.allPlaces} />;
+    return (
+      <AllPlacesView
+        allPlaces={this.props.allPlaces}
+        id={this.props.match.params.id}
+      />
+    );
   }
 }
 
@@ -44,4 +53,7 @@ const mapDispatchToProps = (dispatch) => {
 // };
 
 // Export our store-connected container by default;
-export default connect(mapStateToProps, mapDispatchToProps)(AllPlacesContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllPlacesByCategoryContainer);
