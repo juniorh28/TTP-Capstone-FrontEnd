@@ -7,6 +7,11 @@ export const fetchAllPlaces = (payload) => ({
   payload,
 });
 
+export const fetchSinglePlace = (payload) => ({
+  type: PlacesActionTypes.FETCH_SINGLE_PLACE,
+  payload,
+});
+
 //THUNKS
 
 export const fetchAllPlacesThunk = () => {
@@ -43,6 +48,20 @@ export const fetchAllPlacesByCategoryThunk = (category) => {
       );
       console.log("data", data);
       dispatch(fetchAllPlaces(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const fetchSinglePlaceThunk = (id) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(
+        `http://localhost:8080/api/places/all/${id}`
+      );
+      console.log("data", data);
+      dispatch(fetchSinglePlace(data));
     } catch (error) {
       console.error(error);
     }

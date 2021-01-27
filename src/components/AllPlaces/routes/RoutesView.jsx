@@ -6,6 +6,7 @@ import {
   AllPlacesByCategoryContainer,
   HomeContainer,
 } from "../containers/";
+import SinglePlaceContainer from "../containers/SinglePlaceContainer";
 
 const RoutesView = () => {
   return (
@@ -23,6 +24,7 @@ const RoutesView = () => {
           path="/categories/:id"
           component={AllPlacesByCategoryContainer}
         />
+        <Route exact path="/all/:id" component={SinglePlaceContainer} />
       </Switch>
     </div>
   );
