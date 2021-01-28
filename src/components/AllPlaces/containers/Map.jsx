@@ -8,6 +8,7 @@ import PlacesAutocomplete, {
 import { Route, Switch, Link } from 'react-router-dom';
 
 import HomeContainer from './HomeContainer';
+import { RandomPlacesView } from '../views';
 
 
 
@@ -19,7 +20,7 @@ export class MapContainer extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-
+            newAddress : '',
             mapCenter : {
                 lat:	40.650002,
                 lng: 	-73.949997
@@ -27,7 +28,22 @@ export class MapContainer extends Component {
         };
       }
     
+      componentDidMount(){
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.defaultLocation)
+      }
+    }
     
+    defaultLocation = (position)=>{
+      let pos = {
+        lat : position.coords.latitude,
+        lng : position.coords.longitude
+      }
+      this.setState({
+        mapCenter : pos
+      })
+    } 
+
     handleChange = address => {
         this.setState({ address });
       };
@@ -42,6 +58,10 @@ export class MapContainer extends Component {
           .catch(error => console.error('Error', error));
       };
       
+      handleClick = address => {
+        this.setState({ newAddress : address });
+      };
+     
     
     render() {
         
@@ -111,6 +131,12 @@ export class MapContainer extends Component {
           />
         </Map>
         </div>
+        <div>
+        <RandomPlacesView
+          allPlaces={this.props.allPlaces}
+          // clicked = {this.handleChange}
+        />
+        </div>
         </div>
       )
     }
@@ -120,6 +146,10 @@ export class MapContainer extends Component {
     width : '50%',
     height : '500px'
   }
+
+  
+ 
+
   export default GoogleApiWrapper({
     apiKey: ('AIzaSyANh8chPbOFMS_0ecTl-VENfAvgD5N2sJM')
   })(MapContainer)
