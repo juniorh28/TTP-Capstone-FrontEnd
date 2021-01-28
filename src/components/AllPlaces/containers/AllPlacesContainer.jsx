@@ -6,6 +6,7 @@ import Map from './Map';
 
 import { fetchAllPlacesThunk } from "../../../redux/places/places.actions";
 import { AllPlacesView } from "../views";
+import {RandomPlacesView} from "../views";
 
 // Smart container;
 class AllPlacesContainer extends Component {
@@ -13,10 +14,15 @@ class AllPlacesContainer extends Component {
     this.props.fetchAllPlaces();
   }
 
+
+
   render() {
-    return( 
-    <AllPlacesView allPlaces={this.props.allPlaces} id="All Places" />,
-      <Map/>
+    return(
+      <div>
+      <Map
+        allPlaces={this.props.allPlaces}
+      />
+      </div>
     )
   }
 }
