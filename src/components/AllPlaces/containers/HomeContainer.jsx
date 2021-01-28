@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import RoutesContainer from "../routes/RoutesContainer";
 
-import NewPlaceForm from "../../Form/NewPlaceForm";
-
 class HomeContainer extends Component {
   render() {
     return (

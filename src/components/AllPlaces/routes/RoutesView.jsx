@@ -1,6 +1,8 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
-import NewPlaceForm from "../../Form/NewPlaceForm";
+
+import Form from "../../Form/Form";
+
 import {
   AllPlacesContainer,
   AllPlacesByBoroughContainer,
@@ -27,7 +29,7 @@ const RoutesView = () => {
           component={AllPlacesByCategoryContainer}
         />
         <Route exact path="/all/:id" component={SinglePlaceContainer} />
-        <Route excat path="/addnew" component={NewPlaceForm}></Route>
+        <Route excat path="/addnew" component={Form}></Route>
       </Switch>
     </div>
   );
