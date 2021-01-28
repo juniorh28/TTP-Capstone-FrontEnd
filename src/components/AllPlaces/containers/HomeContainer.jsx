@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import RoutesContainer from "../routes/RoutesContainer";
+import Navbar from '../containers/Navbar'
 
 class HomeContainer extends Component {
   render() {
     return (
       <div>
+        <Navbar/>
         <Link to="/all">
           <button>All Places in NYC</button>
         </Link>
