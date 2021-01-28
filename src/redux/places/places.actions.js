@@ -12,6 +12,11 @@ export const fetchSinglePlace = (payload) => ({
   payload,
 });
 
+export const addNewPlace = (payload) => ({
+  type: PlacesActionTypes.ADD_NEW_PLACE,
+  payload,
+});
+
 //THUNKS
 
 export const fetchAllPlacesThunk = () => {
@@ -62,6 +67,21 @@ export const fetchSinglePlaceThunk = (id) => {
       );
       console.log("data", data);
       dispatch(fetchSinglePlace(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const addNewPlaceThunk = (obj) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(
+        `http://localhost:8080/api/places/newPlace`,
+        obj
+      );
+      console.log("data", data);
+      if (!data.error) dispatch(addNewPlace(data));
     } catch (error) {
       console.error(error);
     }
