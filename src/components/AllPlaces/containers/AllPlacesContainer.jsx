@@ -22,6 +22,11 @@ class AllPlacesContainer extends Component {
       <Map
         allPlaces={this.props.allPlaces}
       />
+      <div>
+      <RandomPlacesView
+        allPlaces = {this.props.allPlaces}
+      />
+      </div>
       </div>
     )
   }
