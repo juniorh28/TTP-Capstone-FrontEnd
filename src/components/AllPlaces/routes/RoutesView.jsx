@@ -6,7 +6,7 @@ import {
   AllPlacesByCategoryContainer,
   HomeContainer,
   Login,
-  Signup
+  Register
 } from "../containers/";
 import SinglePlaceContainer from "../containers/SinglePlaceContainer";
 
@@ -22,7 +22,7 @@ const RoutesView = () => {
           component={AllPlacesByBoroughContainer}
         />
         <Route exact path ="/login" component={Login} />
-        <Route exact path ="/signup" component={Signup} />
+        <Route exact path ="/register" component={Register} />
         <Route
           exact
           path="/categories/:id"

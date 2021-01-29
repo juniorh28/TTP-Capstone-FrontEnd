@@ -11,26 +11,31 @@ export default class Navbar extends Component{
     
 
     loggedIn = () => {
-        if(this.state.isLoggedin){
-           return(
-               <p>sup</p>
-           )
+        if(!this.state.isLoggedin){
+          this.setState({isLoggedin:true})
+        }
+        else{
+            this.setState({isLoggedin:false})
         }
     }
 
     render(){
         return(
            <nav className="navbar">
-               
                <ul>
                    <li>
                        <Link to="/">
                            <button>Home</button>
                        </Link>
                     </li>
-                    {this.state.isLoggedin ? <UserInfo/> : <Login/> }
+                    {this.state.isLoggedin ? <UserInfo/> :
+                        <li>
+                            <Link to="/login">
+                                <button>Login</button>
+                            </Link>
+                        </li>
+                    }
                </ul>
-               
            </nav>
         )
     }
