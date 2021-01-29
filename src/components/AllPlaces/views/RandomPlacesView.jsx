@@ -3,8 +3,13 @@ import "./styles/AllPlayersView.css";
 import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
-import Map from '../containers/Map';
+import MarkerCreator from '../containers/MarkerCreator';
 
+const handleClick = (address)=>{
+  <MarkerCreator
+    center = {address}
+  />
+}
 
 const RandomPlacesView = (props) => {
   console.log(props.params);
@@ -20,7 +25,7 @@ const RandomPlacesView = (props) => {
           <p>{place.borough}</p>
           <p>{place.category}</p>
           <p>{place.numOfLikes}</p>
-          {/* <button type = 'button' onClick = {props.clicked(place.address)}>Show on Map</button> */}
+          <button type = 'button' onClick = {handleClick(place.address)}>Show on Map</button>
         </div>
       ))}
       {props.allPlaces.length === 0 ? <p>No Places Found</p> : ""}
