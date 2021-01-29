@@ -21,6 +21,10 @@ const AllPlacesView = (props) => {
           <p>{place.borough}</p>
           <p>{place.category}</p>
           <p>{place.numOfLikes}</p>
+          {place.comments.map((comment) => (
+            <p>{comment}</p>
+          ))}
+
           <Link to={`/all/${place.id}`}>View More Info</Link>
         </div>
       ))}
