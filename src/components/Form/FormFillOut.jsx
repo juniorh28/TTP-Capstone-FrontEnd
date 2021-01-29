@@ -6,6 +6,8 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Dialog from "@material-ui/core/Dialog";
 
+import { Link } from "react-router-dom";
+
 class FormFillOut extends Component {
   render() {
     console.log(this.props);
@@ -97,6 +99,18 @@ class FormFillOut extends Component {
             >
               Next
             </Button>
+            <br />
+            <br />
+            <Link to="/" style={{ "text-decoration": "none" }}>
+              <Button
+                variant="contained"
+                margin="normal"
+                color="primary"
+                size="large"
+              >
+                Cancel
+              </Button>
+            </Link>
           </Box>
         </Dialog>
       </div>

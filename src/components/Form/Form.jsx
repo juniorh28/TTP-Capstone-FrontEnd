@@ -14,6 +14,7 @@ class Form extends Component {
     category: null,
     numOfLikes: 0,
     placeAdded: false,
+    comments: [],
   };
 
   submitted = (obj) => {
@@ -46,6 +47,7 @@ class Form extends Component {
       borough,
       category,
       numOfLikes,
+      comments,
     } = this.state;
     const values = {
       name,
@@ -55,6 +57,7 @@ class Form extends Component {
       borough,
       category,
       numOfLikes,
+      comments,
     };
     switch (this.state.step) {
       case 1:
