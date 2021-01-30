@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Navbar from './Navbar'
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { auth } from "../../../redux/users/users.actions";
+import { authThunk } from "../../../redux/users/users.actions";
 
 class Register extends Component{
     constructor(props){
@@ -10,13 +10,13 @@ class Register extends Component{
         this.state={
             password:"",
             email:"",
-            method:"/register"
+            method:"register"
         }
     }
     
     handleSubmit=(event) => {
         event.preventDefault()
-        this.props.auth(this.state.email,this.state.password,this.state.method)//send the info to the store
+        this.props.authThunk(this.state.email,this.state.password,this.state.method)//send the info to the store
         this.setState({
             password:"",
             email:"",
@@ -53,16 +53,15 @@ class Register extends Component{
     }
 
 }
-const mapStateToProps = (state) =>{
+/* const mapStateToProps = (state) =>{
     return{
         getUser:state.getUser
     }
 }
-
+ */
 const mapDispatch = (dispatch) =>{
     return { 
-        auth:(email,password,method) => dispatch(auth(email,password,method))
+        auth:(email,password,method) => dispatch(authThunk(email,password,method))
     }
 }
-
-export default connect(mapStateToProps, mapDispatch)(Register)
+export default connect( mapDispatch)(Register)

@@ -19,13 +19,14 @@ export const logOut = () => {
 export const me = () => async(dispatch) => {
     try {
       const res = axios.get(`http://localhost:${PORT}/auth/me`, {withCredentials:true})
-      dispatch(getUser(res.data || defaultUser))
+      dispatch(getUser(res.data || {}))
     }catch (error) {
       console.log(error)
     }
 }
 
-export const auth = (email,password,method) => async(dispatch) => {
+//auth is for login and registration
+export const authThunk = (email,password,method) => async(dispatch) => {
   let res 
   try {
     res = await axios.post(`http://localhost:${PORT}/auth/${method}`,

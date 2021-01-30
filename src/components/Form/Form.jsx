@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+/* import React, { Component } from "react";
 import FormFillOut from "./FormFillOut";
 import Confirm from "./Confirm";
 import Status from "./Status";
@@ -89,3 +89,4 @@ class Form extends Component {
 }
 
 export default Form;
+ */

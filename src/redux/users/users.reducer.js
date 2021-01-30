@@ -2,7 +2,7 @@ import UserActionTypes from './users.types';
 
 const defaultUser = {}
 
-const userReducer = (state = defaultUser, action) => {
+const userReducer = (state = {}, action) => {
   console.log('PL', action);
   switch (action.type) { 
     case UserActionTypes.GET_USER:

@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 import { HandThumbsUp } from "react-bootstrap-icons";
 
 const LikesView = (props) => {
@@ -12,4 +12,4 @@ const LikesView = (props) => {
     );
 };
 
-export default LikesView;
+export default LikesView; */
