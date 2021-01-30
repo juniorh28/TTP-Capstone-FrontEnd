@@ -7,9 +7,13 @@ import axios from "axios";
 
 import Map from "./Map";
 
+import CommentsContainer from "../containers/CommentsContainer";
+import LikesContainer from "../containers/LikesContainer";
+
 import {
   fetchSinglePlaceThunk,
   addLikeThunk,
+  addCommentThunk,
 } from "../../../redux/places/places.actions";
 
 // Smart container;
@@ -24,21 +28,6 @@ class SinglePlaceContainer extends Component {
       this.props.fetchSinglePlace(this.props.match.params.id);
   }
 
-  handleClick = () => {
-    this.props.addLike(this.props.singlePlace.id);
-  };
-
-  //sends the comment to the database
-  //need to change it all to reducer
-  async handleSubmit(e) {
-    e.preventDefault();
-    //trying to send sample comment, first needs to be pushed to array of existing comments
-    this.props.singlePlace.comments.push("cool");
-    await axios.put(
-      `http://localhost:8080/api/places/addComment/${this.props.singlePlace.id}`,
-      this.props.singlePlace.comments
-    );
-  }
   render() {
     return (
       <div>
@@ -49,16 +38,20 @@ class SinglePlaceContainer extends Component {
         <img src={this.props.singlePlace.imageUrl} />
         <p>{this.props.singlePlace.description}</p>
         <p>{this.props.singlePlace.address}</p>
-        <button onClick={this.handleClick}>Like</button>
-        <p>{this.props.singlePlace.numOfLikes}</p>
+
+        <p>Likes: {this.props.singlePlace.numOfLikes}</p>
+
+        <LikesContainer />
+
         <p>Comments:</p>
         {this.props.singlePlace.comments &&
         this.props.singlePlace.comments.length > 0
-          ? this.props.singlePlace.comments.map((comment) => <p>{comment}</p>)
+          ? this.props.singlePlace.comments.map((comment, key) => (
+              <p key={key}>{comment}</p>
+            ))
           : "no comments yet"}
 
-        {/* test if the comment gets send */}
-        <button onClick={(e) => this.handleSubmit(e)}>add comment</button>
+        <CommentsContainer />
       </div>
     );
   }
@@ -77,6 +70,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchSinglePlace: (id) => dispatch(fetchSinglePlaceThunk(id)),
     addLike: (id) => dispatch(addLikeThunk(id)),
+    // addComment: (id, obj) => dispatch(addCommentThunk(id, obj)),
   };
 };
 

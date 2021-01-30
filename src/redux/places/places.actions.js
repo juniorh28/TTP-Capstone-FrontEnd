@@ -22,6 +22,11 @@ export const addLike = (payload) => ({
   payload,
 });
 
+export const addComment = (payload) => ({
+  type: PlacesActionTypes.ADD_COMMENT,
+  payload,
+});
+
 //THUNKS
 
 export const fetchAllPlacesThunk = () => {
@@ -98,6 +103,25 @@ export const addLikeThunk = (id) => {
     try {
       const data = await axios.put(
         `http://localhost:8080/api/places/editLikes/${id}`
+      );
+
+      dispatch(addLike(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const addCommentThunk = (id, obj) => {
+  return async (dispatch) => {
+    try {
+      console.log(obj);
+      //updates oldComments
+      obj.oldComments.push(obj.newComment);
+      //puts updated comments in database
+      const data = await axios.put(
+        `http://localhost:8080/api/places/addComment/${id}`,
+        obj.oldComments
       );
 
       dispatch(addLike(data));
