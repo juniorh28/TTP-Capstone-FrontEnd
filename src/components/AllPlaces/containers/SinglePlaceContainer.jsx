@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
 import { HandThumbsUp } from "react-bootstrap-icons";
+import axios from "axios";
 
 import Map from "./Map";
 
@@ -27,6 +28,17 @@ class SinglePlaceContainer extends Component {
     this.props.addLike(this.props.singlePlace.id);
   };
 
+  //sends the comment to the database
+  //need to change it all to reducer
+  async handleSubmit(e) {
+    e.preventDefault();
+    //trying to send sample comment, first needs to be pushed to array of existing comments
+    this.props.singlePlace.comments.push("cool");
+    await axios.put(
+      `http://localhost:8080/api/places/addComment/${this.props.singlePlace.id}`,
+      this.props.singlePlace.comments
+    );
+  }
   render() {
     return (
       <div>
@@ -39,6 +51,14 @@ class SinglePlaceContainer extends Component {
         <p>{this.props.singlePlace.address}</p>
         <button onClick={this.handleClick}>Like</button>
         <p>{this.props.singlePlace.numOfLikes}</p>
+        <p>Comments:</p>
+        {this.props.singlePlace.comments &&
+        this.props.singlePlace.comments.length > 0
+          ? this.props.singlePlace.comments.map((comment) => <p>{comment}</p>)
+          : "no comments yet"}
+
+        {/* test if the comment gets send */}
+        <button onClick={(e) => this.handleSubmit(e)}>add comment</button>
       </div>
     );
   }
