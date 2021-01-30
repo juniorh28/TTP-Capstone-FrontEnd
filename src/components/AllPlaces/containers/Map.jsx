@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Map, Marker, GoogleApiWrapper, InfoWindow} from 'google-maps-react';
 
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -8,8 +8,10 @@ import PlacesAutocomplete, {
 import { Route, Switch, Link } from 'react-router-dom';
 
 import HomeContainer from './HomeContainer';
+import { RandomPlacesView } from '../views';
+import MarkerCreator from './MarkerCreator';
 
-
+require('dotenv').config();
 
 
 export class MapContainer extends Component {
@@ -19,15 +21,35 @@ export class MapContainer extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-
-            mapCenter : {
-                lat:	40.650002,
-                lng: 	-73.949997
-            }
+            newAddress : '',
+            mapCenter : {},
+            home: {},
+            place : []
         };
       }
     
+      componentDidMount(){
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(this.defaultLocation)
+      }
+      {this.props.allPlaces.map(each =>{
+        {this.handlePlaceMarkers(each.address)}
+      })}
+      
+    }
+
     
+    defaultLocation = (position)=>{
+      let pos = {
+        lat : position.coords.latitude,
+        lng : position.coords.longitude
+      }
+      this.setState({
+        home : pos,
+        mapCenter : pos
+      })
+    } 
+
     handleChange = address => {
         this.setState({ address });
       };
@@ -41,12 +63,40 @@ export class MapContainer extends Component {
               this.setState({mapCenter: latLng})})
           .catch(error => console.error('Error', error));
       };
+
+      handleInfo = position =>{
+        let pos = position
+        return(
+        <InfoWindow
+        position = {pos}>
+        </InfoWindow>
+        )
+      }
+
+      handlePlaceMarkers = add =>{
+        geocodeByAddress(add)
+          .then(results => getLatLng(results[0]))
+          .then(latLng =>{
+            let position = {
+              lat: latLng.lat,
+              lng: latLng.lng
+            }  
+            let placeholder = this.state.place
+            placeholder.push(position)
+            this.setState({
+              place : placeholder
+            })
+            console.log(this.state.place)
+          })
+          .catch(error => console.error('Error', error));
+      }
       
     
     render() {
         
       return (
           <div id = "google-map">
+          
           <div id= 'Homebtn'>
           <Link to="/">
           <button>Home</button>
@@ -93,8 +143,8 @@ export class MapContainer extends Component {
       <div id = "map">
         <Map google={this.props.google}
             initialCenter ={{
-                lat : this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng
+                lat : this.state.home.lat,
+                lng: this.state.home.lng
             }}
             center = {{
                 lat : this.state.mapCenter.lat,
@@ -103,23 +153,50 @@ export class MapContainer extends Component {
 
             style = {styles}
         >
-          <Marker
+          <Marker id = 'destination'
+              title = ""
               position = {{
                 lat : this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
               }}
+              onClick = {this.handleInfo(this.state.mapCenter)}
           />
+          <Marker id = 'home'
+    
+          title = "You're here"
+              position = {{
+                lat : this.state.home.lat,
+                lng: this.state.home.lng
+              }}
+          />
+
+          {this.state.place.map(each =>{
+            return(
+              <Marker
+                position = {{
+                  lat: each.lat,
+                  lng: each.lng
+                }}
+              />
+            )
+          })}
+              
+          
         </Map>
         </div>
+       
         </div>
       )
     }
   }
 
   const styles = {
-    width : '50%',
+    width : '100%',
     height : '500px'
   }
+
+ 
+
   export default GoogleApiWrapper({
-    apiKey: ('AIzaSyANh8chPbOFMS_0ecTl-VENfAvgD5N2sJM')
+    apiKey : (`${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
   })(MapContainer)

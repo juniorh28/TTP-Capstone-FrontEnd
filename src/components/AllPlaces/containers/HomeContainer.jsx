@@ -37,6 +37,7 @@ class HomeContainer extends Component {
         <Link to="/boroughs/statenisland">
           <button>Staten Island</button>
         </Link>
+        <br />
       </div>
     );
   }
