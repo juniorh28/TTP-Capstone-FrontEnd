@@ -28,10 +28,12 @@ class SinglePlaceContainer extends Component {
     this.props.addLike(this.props.singlePlace.id);
   };
 
+  //sends the comment to the database
+  //need to change it all to reducer
   async handleSubmit(e) {
     e.preventDefault();
+    //trying to send sample comment, first needs to be pushed to array of existing comments
     this.props.singlePlace.comments.push("cool");
-
     await axios.put(
       `http://localhost:8080/api/places/addComment/${this.props.singlePlace.id}`,
       this.props.singlePlace.comments
@@ -55,8 +57,7 @@ class SinglePlaceContainer extends Component {
           ? this.props.singlePlace.comments.map((comment) => <p>{comment}</p>)
           : "no comments yet"}
 
-        <p>New Comment:</p>
-        <input></input>
+        {/* test if the comment gets send */}
         <button onClick={(e) => this.handleSubmit(e)}>add comment</button>
       </div>
     );
