@@ -9,12 +9,14 @@ class CommentsContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      placeId: 0,
       user: {},
-      userId: null, //to be updated with Junior's
+      userId: 1, //to be updated with Junior's work
       commentReview: "",
     };
   }
+
+  //this part is probably not needed
+
   // componentDidMount() {
   //   // const user = { ...this.props.user };
   //   this.setState({
@@ -50,7 +52,7 @@ class CommentsContainer extends Component {
     else {
       return (
         <CommentsView
-          placeId={this.state.placeId}
+          placeId={this.props.placeId}
           commentReview={this.state.commentReview}
           handleChange={this.handleChange}
           handleSubmit={(e) => this.handleSubmit(e)}

@@ -8,6 +8,7 @@ import axios from "axios";
 import Map from "./Map";
 
 import CommentsContainer from "../containers/CommentsContainer";
+import LikesContainer from "../containers/LikesContainer";
 
 import {
   fetchSinglePlaceThunk,
@@ -27,19 +28,6 @@ class SinglePlaceContainer extends Component {
       this.props.fetchSinglePlace(this.props.match.params.id);
   }
 
-  handleClick = () => {
-    this.props.addLike(this.props.singlePlace.id);
-  };
-
-  // //sends the comment to the database
-  // async handleSubmit(e) {
-  //   e.preventDefault();
-  //   const data = {
-  //     oldComments: this.props.singlePlace.comments,
-  //     newComment: "Nice echibition, def reccomend!", //place the text of new comment here
-  //   };
-  //   this.props.addComment(this.props.singlePlace.id, data);
-  // }
   render() {
     return (
       <div>
@@ -50,8 +38,10 @@ class SinglePlaceContainer extends Component {
         <img src={this.props.singlePlace.imageUrl} />
         <p>{this.props.singlePlace.description}</p>
         <p>{this.props.singlePlace.address}</p>
-        <button onClick={this.handleClick}>Like</button>
-        <p>{this.props.singlePlace.numOfLikes}</p>
+
+        <p>Likes: {this.props.singlePlace.numOfLikes}</p>
+
+        <LikesContainer />
 
         <p>Comments:</p>
         {this.props.singlePlace.comments &&
