@@ -2,10 +2,14 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import { HandThumbsUp } from "react-bootstrap-icons";
 
 import Map from "./Map";
 
-import { fetchSinglePlaceThunk } from "../../../redux/places/places.actions";
+import {
+  fetchSinglePlaceThunk,
+  addLikeThunk,
+} from "../../../redux/places/places.actions";
 
 // Smart container;
 class SinglePlaceContainer extends Component {
@@ -13,6 +17,15 @@ class SinglePlaceContainer extends Component {
     let id = this.props.match.params.id;
     this.props.fetchSinglePlace(id);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.singlePlace.numOfLikes !== prevProps.singlePlace.numOfLikes)
+      this.props.fetchSinglePlace(this.props.match.params.id);
+  }
+
+  handleClick = () => {
+    this.props.addLike(this.props.singlePlace.id);
+  };
 
   render() {
     return (
@@ -24,6 +37,8 @@ class SinglePlaceContainer extends Component {
         <img src={this.props.singlePlace.imageUrl} />
         <p>{this.props.singlePlace.description}</p>
         <p>{this.props.singlePlace.address}</p>
+        <button onClick={this.handleClick}>Like</button>
+        <p>{this.props.singlePlace.numOfLikes}</p>
       </div>
     );
   }
@@ -41,6 +56,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchSinglePlace: (id) => dispatch(fetchSinglePlaceThunk(id)),
+    addLike: (id) => dispatch(addLikeThunk(id)),
   };
 };
 

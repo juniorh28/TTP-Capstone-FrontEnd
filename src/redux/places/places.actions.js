@@ -17,8 +17,9 @@ export const addNewPlace = (payload) => ({
   payload,
 });
 
-export const addLike = () => ({
+export const addLike = (payload) => ({
   type: PlacesActionTypes.ADD_LIKE,
+  payload,
 });
 
 //THUNKS
@@ -95,9 +96,11 @@ export const addNewPlaceThunk = (obj) => {
 export const addLikeThunk = (id) => {
   return async (dispatch) => {
     try {
-      await axios.put(`http://localhost:8080/api/places/editLikes${id}`);
+      const data = await axios.put(
+        `http://localhost:8080/api/places/editLikes/${id}`
+      );
 
-      dispatch(addLike());
+      dispatch(addLike(data));
     } catch (error) {
       console.error(error);
     }
