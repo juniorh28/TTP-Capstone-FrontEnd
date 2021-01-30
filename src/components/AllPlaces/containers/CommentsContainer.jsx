@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addCommentThunk } from "../../../redux/comments/comments.actions";
+import { addCommentThunk } from "../../../redux/places/places.actions";
 import CommentsView from "../views/CommentsView";
 import { Link } from "react-router-dom";
 
@@ -11,27 +11,31 @@ class CommentsContainer extends Component {
     this.state = {
       placeId: 0,
       user: {},
-      userId: null,
+      userId: null, //to be updated with Junior's
       commentReview: "",
     };
   }
-  componentDidMount() {
-    const user = { ...this.props.user };
-    this.setState({
-      placeId: this.props.placeId,
-      user: user,
-      userId: this.props.user.id,
-    });
-  }
+  // componentDidMount() {
+  //   // const user = { ...this.props.user };
+  //   this.setState({
+  //     // user: user,
+  //     // userId: this.props.user.id,
+  //   });
+  // }
+
   handleChange = (e) => {
     this.setState({ commentReview: e.target.value });
   };
 
-  handleSubmit = (e) => {
+  async handleSubmit(e) {
     e.preventDefault();
-    this.props.addComment(this.state);
+    const obj = {
+      oldComments: this.props.place.comments,
+      newComment: this.state.commentReview,
+    };
+    await this.props.addComment(this.props.placeId, obj);
     this.setState({ commentReview: "" });
-  };
+  }
   render() {
     if (!this.state.userId)
       return (
@@ -49,7 +53,7 @@ class CommentsContainer extends Component {
           placeId={this.state.placeId}
           commentReview={this.state.commentReview}
           handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
+          handleSubmit={(e) => this.handleSubmit(e)}
         />
       );
     }
@@ -60,14 +64,16 @@ class CommentsContainer extends Component {
 const mapStateToProps = (state) => {
   console.log("state", state);
   return {
-    user: state.allUsers,
+    // user: state.allUsers,
+    place: state.places.singlePlace,
+    placeId: state.places.singlePlace.id,
   };
 };
 
 // Map dispatch to state
 const mapDispatch = (dispatch) => {
   return {
-    addComment: (newComment) => dispatch(addCommentThunk(newComment)),
+    addComment: (placeId, obj) => dispatch(addCommentThunk(placeId, obj)),
   };
 };
 

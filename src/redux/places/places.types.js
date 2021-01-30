@@ -3,6 +3,7 @@ const PlacesActionTypes = {
   FETCH_SINGLE_PLACE: "FETCH_SINGLE_PLACE",
   ADD_NEW_PLACE: "ADD_NEW_PLACE",
   ADD_LIKE: "ADD_LIKE",
+  ADD_COMMENT: "ADD_COMMENT",
 };
 
 export default PlacesActionTypes;

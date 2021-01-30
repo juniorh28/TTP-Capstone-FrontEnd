@@ -16,6 +16,8 @@ const placesReducer = (state = INITIAL_STATE, action) => {
       return { ...state, singlePlace: action.payload };
     case PlacesActionTypes.ADD_LIKE:
       return { ...state, singlePlace: action.payload };
+    case PlacesActionTypes.ADD_COMMENT:
+      return { ...state, singlePlace: action.payload };
     default:
       return state;
   }
