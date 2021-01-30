@@ -10,6 +10,8 @@ import { Route, Switch, Link } from 'react-router-dom';
 import HomeContainer from './HomeContainer';
 import { RandomPlacesView } from '../views';
 import MarkerCreator from './MarkerCreator';
+import MapStyler from '../views/MapStyler';
+import map from '../views/styles/map.css';
 
 require('dotenv').config();
 
@@ -21,7 +23,6 @@ export class MapContainer extends Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-            newAddress : '',
             mapCenter : {},
             home: {},
             place : []
@@ -31,11 +32,7 @@ export class MapContainer extends Component {
       componentDidMount(){
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(this.defaultLocation)
-      }
-      {this.props.allPlaces.map(each =>{
-        {this.handlePlaceMarkers(each.address)}
-      })}
-      
+      }     
     }
 
     
@@ -64,13 +61,11 @@ export class MapContainer extends Component {
           .catch(error => console.error('Error', error));
       };
 
-      handleInfo = position =>{
-        let pos = position
-        return(
-        <InfoWindow
-        position = {pos}>
-        </InfoWindow>
-        )
+      handleInfo(e){
+        e.preventDefault();
+        this.setState({
+          showingInfoWindow : !this.state.showingInfoWindow
+        })
       }
 
       handlePlaceMarkers = add =>{
@@ -91,9 +86,11 @@ export class MapContainer extends Component {
           .catch(error => console.error('Error', error));
       }
       
-    
     render() {
-        
+       const st ={
+         width : '100%',
+         height : '500px'
+       }
       return (
           <div id = "google-map">
           
@@ -141,7 +138,11 @@ export class MapContainer extends Component {
         )}
       </PlacesAutocomplete>
       <div id = "map">
-        <Map google={this.props.google}
+      {this.props.allPlaces.map(each =>{
+        {this.handlePlaceMarkers(each.address)}
+      })}
+     
+        <Map google = {this.props.google}
             initialCenter ={{
                 lat : this.state.home.lat,
                 lng: this.state.home.lng
@@ -151,7 +152,9 @@ export class MapContainer extends Component {
                 lng: this.state.mapCenter.lng
             }}
 
-            style = {styles}
+            styles = {MapStyler}
+            zoom = {16}
+
         >
           <Marker id = 'destination'
               title = ""
@@ -159,28 +162,31 @@ export class MapContainer extends Component {
                 lat : this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
               }}
-              onClick = {this.handleInfo(this.state.mapCenter)}
+              onClick = {this.handleInfo}
+              {...this.state.showingInfoWindow && <InfoWindow/>}
           />
           <Marker id = 'home'
-    
           title = "You're here"
-              position = {{
+            position = {{
                 lat : this.state.home.lat,
                 lng: this.state.home.lng
               }}
+              
           />
 
-          {this.state.place.map(each =>{
+       
+
+          {this.state.place.map((each, index) =>{
             return(
               <Marker
+              key = {index}
                 position = {{
                   lat: each.lat,
                   lng: each.lng
                 }}
               />
             )
-          })}
-              
+          })}           
           
         </Map>
         </div>
@@ -190,10 +196,8 @@ export class MapContainer extends Component {
     }
   }
 
-  const styles = {
-    width : '100%',
-    height : '500px'
-  }
+  
+
 
  
 
