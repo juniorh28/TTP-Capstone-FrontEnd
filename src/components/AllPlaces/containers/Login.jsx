@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Navbar from '../containers/Navbar'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import RoutesContainer from "../routes/RoutesContainer";
 import GoogleLogin from './GoogleLogin'
@@ -9,7 +8,7 @@ export default class Login extends Component{
     render(){
         return(
             <div>
-                <Navbar/>
+            
                 
                 <h1>Login: </h1>
                 <br/>

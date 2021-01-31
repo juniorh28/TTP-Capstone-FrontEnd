@@ -4,12 +4,30 @@ const PORT = 8083
 const defaultUser = {}
 
 //ACTION CREATORS
-export const getUser = (user) => {
+
+const getUser = user => { 
+  if (user.email !== undefined) {
+    user.isLoggedIn = true
+  }
+  
+  return {
+    type: UserActionTypes.GET_USER,
+    payload: user
+  }
+}
+export const registerUser = (user) => {
+  return{
+  type: UserActionTypes.GET_USER,
+  user
+}
+}
+
+export const loginUser = (user) => {
   if (user.email !== undefined) {
     user.isLoggedIn = true
   }
   return{
-  type: UserActionTypes.GET_USER,
+  type: UserActionTypes.LOGIN_USER,
   user
 }
 }
@@ -23,7 +41,7 @@ export const logOut = () => {
 //THUNKS
 export const me = () => async(dispatch) => {
     try {
-      const res = axios.get(`https://ttp-capstone-test.herokuapp.com/auth/me`, {withCredentials:true})
+      const res = axios.get(`https://ttp-capstone-test.herokuapp.com/auth/me`)
       dispatch(getUser(res.data || {}))
     }catch (error) {
       console.log(error)
@@ -46,6 +64,42 @@ export const authThunk = (email,password,method) => async(dispatch) => {
     console.error(error)
   }
 }
+
+
+//auth is for login and registration
+export const register = (email,password) => async(dispatch) => {
+  let res 
+  try {
+    res = await axios.post(`https://ttp-capstone-test.herokuapp.com/auth/register`,
+    {email,password})
+  } catch (authError) {
+    return dispatch(registerUser({error:authError}))
+  }
+  try {
+    dispatch(registerUser(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+
+
+//auth is for login and registration
+export const loginUserThunk = (email,password) => async(dispatch) => {
+  let res 
+  try {
+    res = await axios.post(`https://ttp-capstone-test.herokuapp.com/auth/login`,
+    {email,password})
+  } catch (authError) {
+    return dispatch(loginUser({error:authError}))
+  }
+  try {
+    dispatch(loginUser(res.data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 
 export const userLogOut = () => async(dispatch) => {
   try {

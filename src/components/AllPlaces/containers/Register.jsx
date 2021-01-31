@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import Navbar from './Navbar'
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import { authThunk,getUser } from "../../../redux/users/users.actions";
+import { authThunk,getUser,register,registerUser } from "../../../redux/users/users.actions";
 
 class Register extends Component{
     constructor(props){
@@ -17,7 +16,7 @@ class Register extends Component{
     handleSubmit=(event) => {
         event.preventDefault()
         console.log(event)
-        this.props.getUser(this.state.email,this.state.password,this.state.method)//send the info to the store
+        this.props.register(this.state.email,this.state.password)//send the info to the store
         this.setState({
             password:"",
             email:"",
@@ -31,7 +30,6 @@ class Register extends Component{
     render(){
         return(
             <div>
-                <Navbar/>
                 <h1>Register</h1>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email: 
@@ -54,15 +52,15 @@ class Register extends Component{
     }
 
 }
-/* const mapStateToProps = (state) =>{
+ const mapStateToProps = (state) =>{
     return{
-        getUser:state.getUser
+        register:state.register
     }
 }
- */
-const mapDispatch = (dispatch) =>{
+ 
+const mapDispatch = dispatch =>{
     return { 
-        auth:(email,password,method) => dispatch(authThunk(email,password,method))
+        register:(email,password) => dispatch(register(email,password))
     }
 }
-export default connect(mapDispatch)(Register)
+export default connect(mapStateToProps,mapDispatch)(Register)

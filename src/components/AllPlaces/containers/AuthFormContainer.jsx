@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+/* import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authThunk } from "../../../redux/users/users.actions";
 import { AuthFormView } from "../views";
@@ -69,3 +69,4 @@ const mapDispatch = dispatch => {
 
 export const Login = connect(mapLogin, mapDispatch)(AuthFormContainer);
 export const Register = connect(mapRegister, mapDispatch)(AuthFormContainer);
+ */

@@ -12,6 +12,10 @@ const userReducer = (state = defaultState, action) => {
   switch (action.type) { 
     case UserActionTypes.GET_USER:
         return action.payload
+    case UserActionTypes.LOGIN_USER:
+        return action.payload
+    case UserActionTypes.REGISTER:
+      return action.payload
     case UserActionTypes.LOGOUT_USER:
         return state
     default:
