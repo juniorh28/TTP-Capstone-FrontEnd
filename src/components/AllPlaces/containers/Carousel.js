@@ -1,17 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-function Carousel(props){
-    const settings = {
+function NextArrow(props){
+    const{ className, style, onClick } = props;  
+    return (
+        <div
+            className={className}
+            style={{...style, display: "block"}}
+            onClick={onClick}
+        />
+    );
+}
+function PrevArrow(props) {
+    const {className, style, onClick } = props;
+    return (
+        <div    
+            className={className}
+            style={{...style, display: "block"}}
+            onClick={onClick}
+        />
+    );
+}
+export default class Carousel extends Component {
+    render() {
+        const settings = {
         dots: true,
         infinite: true,
         speed: 500,
+        autoplaySpeed: 500,
         slidesToShow: 2,
         slidesToScroll: 1,
-        autoplay: true
-    }   
+        autoplay: true,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />
+        };
     return(
         <Slider {...settings}>
             <div className="imgs"><img src="/images/CoronaArt.png" /></div>
@@ -53,4 +77,5 @@ function Carousel(props){
         </Slider>
     )
 }
-export default Carousel;
+}
+
