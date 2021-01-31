@@ -6,3 +6,6 @@ export { default as AllPlacesByBoroughContainer } from "./AllPlacesByBoroughCont
 export { default as AllPlacesByCategoryContainer } from "./AllPlacesByCategoryContainer";
 export { default as HomeContainer } from "./HomeContainer";
 export { default as PlacesDisplay } from "./PlacesDisplay";
+export { default as Login } from "./Login";
+export { default as Register } from "./Register";
+

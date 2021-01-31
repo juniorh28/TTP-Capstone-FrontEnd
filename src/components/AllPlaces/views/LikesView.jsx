@@ -12,4 +12,4 @@ const LikesView = (props) => {
     );
 };
 
-export default LikesView;
+export default LikesView; 
