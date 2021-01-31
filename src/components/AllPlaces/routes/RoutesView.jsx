@@ -17,10 +17,10 @@ const RoutesView = (props) => {
   const { isLoggedIn } = props;
   return (
     <div>
-      <switch>
+      <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-
+        <Route exact path="/" component={HomeContainer} />
         {isLoggedIn && (
           <Switch>
             <Route exact path="/" component={HomeContainer} />
@@ -41,7 +41,7 @@ const RoutesView = (props) => {
         )}
 
         <Route exact path="/login" component={Login} />
-      </switch>
+      </Switch>
     </div>
   );
 };

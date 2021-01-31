@@ -4,10 +4,15 @@ const PORT = 8083
 const defaultUser = {}
 
 //ACTION CREATORS
-export const getUser = (payload) => ({
+export const getUser = (user) => {
+  if (user.email !== undefined) {
+    user.isLoggedIn = true
+  }
+  return{
   type: UserActionTypes.GET_USER,
-  payload,
-})
+  user
+}
+}
 
 export const logOut = () => {
     return {
@@ -18,7 +23,7 @@ export const logOut = () => {
 //THUNKS
 export const me = () => async(dispatch) => {
     try {
-      const res = axios.get(`http://localhost:${PORT}/auth/me`, {withCredentials:true})
+      const res = axios.get(`https://ttp-capstone-test.herokuapp.com/auth/me`, {withCredentials:true})
       dispatch(getUser(res.data || {}))
     }catch (error) {
       console.log(error)
@@ -29,7 +34,7 @@ export const me = () => async(dispatch) => {
 export const authThunk = (email,password,method) => async(dispatch) => {
   let res 
   try {
-    res = await axios.post(`http://localhost:${PORT}/auth/${method}`,
+    res = await axios.post(`https://ttp-capstone-test.herokuapp.com/auth/${method}`,
     {email,password},
     {withCredentials:true})
   } catch (authError) {
@@ -44,7 +49,7 @@ export const authThunk = (email,password,method) => async(dispatch) => {
 
 export const userLogOut = () => async(dispatch) => {
   try {
-      await axios.delete(`http://localhost:${PORT}/auth/logout`,{withCredentials:true})
+      await axios.delete(`https://ttp-capstone-test.herokuapp.com/auth/logout`,{withCredentials:true})
       dispatch(logOut())
   } catch (error) {
     console.log(error)

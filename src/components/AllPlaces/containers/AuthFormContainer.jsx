@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { auth } from "../../thunks";
+import { authThunk } from "../../../redux/users/users.actions";
 import { AuthFormView } from "../views";
 
 // Smart container;
@@ -43,9 +43,9 @@ const mapLogin = state => {
   return {
     name: "login",
     displayName: "Login",
-    error: state.user.error,
-    isLoggedIn: !!state.user.id,
-    userEmail: state.user.email
+    error: state.users.error, 
+    isLoggedIn: !!state.users.id,
+    userEmail: state.users.id
   };
 };
 
@@ -54,18 +54,18 @@ const mapRegister = state => {
   return {
     name: "register",
     displayName: "Register",
-    error: state.user.error,
-    isLoggedIn: !!state.user.id,
-    userEmail: state.user.email
+    error: state.users.error,
+    isLoggedIn: !!state.users.id,
+    userEmail: state.users.id
   };
 };
 
 // Map dispatch to props;
 const mapDispatch = dispatch => {
   return {
-    loginOrSignup: (email, password, formName) => dispatch(auth(email, password, formName))
+    loginOrSignup: (email, password, formName) => dispatch(authThunk(email, password, formName))
   }
 };
 
 export const Login = connect(mapLogin, mapDispatch)(AuthFormContainer);
-export const Signup = connect(mapSignup, mapDispatch)(AuthFormContainer);
+export const Register = connect(mapRegister, mapDispatch)(AuthFormContainer);

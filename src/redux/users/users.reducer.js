@@ -1,8 +1,13 @@
 import UserActionTypes from './users.types';
 
-const defaultUser = {}
+const defaultState = {
+  id: "",
+  email:"",
+  error: "",
+  isLoggedIn: false     
+}
 
-const userReducer = (state = {}, action) => {
+const userReducer = (state = defaultState, action) => {
   console.log('PL', action);
   switch (action.type) { 
     case UserActionTypes.GET_USER:
