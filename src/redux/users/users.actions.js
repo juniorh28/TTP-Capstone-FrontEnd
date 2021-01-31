@@ -95,6 +95,7 @@ export const loginUserThunk = (email,password) => async(dispatch) => {
   }
   try {
     dispatch(loginUser(res.data))
+    console.log("Logged In")
   } catch (error) {
     console.error(error)
   }
