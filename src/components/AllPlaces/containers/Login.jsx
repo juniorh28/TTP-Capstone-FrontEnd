@@ -5,6 +5,9 @@ import RoutesContainer from "../routes/RoutesContainer";
 import GoogleLogin from './GoogleLogin'
 import { authThunk,getUser,loginUser,loginUserThunk } from "../../../redux/users/users.actions";
 
+import login from './Login.css'
+import button from './Buttons.css'
+
 class Login extends Component{
     constructor(props){
         super(props)
@@ -35,7 +38,7 @@ class Login extends Component{
                 <br/>
                 <GoogleLogin/>
                 <br/>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} id = 'form'>
                     <label>Email: 
                         <input name="email" type="email" value={this.state.email} onChange={this.handleChange} required/>
                     </label>
@@ -44,11 +47,11 @@ class Login extends Component{
                         <input name="password" type="password" value={this.state.password} onChange={this.handleChange} required/>
                     </label>
                     <br/>
-                    <button type="submit">Submit</button>
+                    <button type="submit" class = 'btn-all'>Submit</button>
                 </form>
                 <h6>Or did you mean register?...</h6>
                 <Link to="/register">
-                    <button>Register</button>
+                    <button class = 'btn-all'>Register</button>
                 </Link>
             </div>
         )

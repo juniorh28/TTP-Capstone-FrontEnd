@@ -1,5 +1,23 @@
-#map{
-    padding-bottom: 50px;
-    padding-top: 50px;
+#google-map{
+    padding-top: 10px;
     
+}
+
+#google-map input{
+        font-family: inherit;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid gray;
+        outline: 0;
+        font-size: 1.3rem;
+        color: white;
+        padding: 7px 0;
+        caret-color: white;
+        background: transparent;
+        transition: border-color 0.2s;
+        padding-bottom: 6px;  
+        font-weight: 700;
+         border-width: 3px;
+        border-image: linear-gradient(to right, primary,secondary);
+        border-image-slice: 1;
 }

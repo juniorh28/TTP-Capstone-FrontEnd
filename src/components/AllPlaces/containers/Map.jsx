@@ -9,7 +9,6 @@ import {BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 import HomeContainer from './HomeContainer';
 import { RandomPlacesView } from '../views';
-import MarkerCreator from './MarkerCreator';
 import MapStyler from '../views/MapStyler';
 import map from '../views/styles/map.css';
 
@@ -21,13 +20,11 @@ export class MapContainer extends Component {
         super(props);
         this.state = { address: '' ,
             showingInfoWindow: true,
+            showingnewInfoWindow: true,
             activeMarker: {},
-            selectedPlace: {},
             mapCenter : {},
             home: {},
-            len: 1,
             place : [],
-            windowInfo: {}
         };
       }
     
@@ -73,18 +70,42 @@ export class MapContainer extends Component {
         console.log(marker)
         if(this.state.showingInfoWindow == true && this.state.activeMarker.id != marker.id){
           this.setState({
+            showingInfoWindow: false,
+            showingnewInfoWindow : false
+          })
+        }
+        if(this.state.activeMarker.id != marker.id){
+        this.setState({
+          activeMarker: marker,
+          showingInfoWindow: true,
+          mapCenter : props.position
+        })
+      }
+      }     
+
+      handlenewInfo = (props,marker) =>{
+        console.log(marker)
+        if(this.state.showingnewInfoWindow == true && this.state.activeMarker.id != marker.id){
+          this.setState({
+            showingnewInfoWindow: false,
             showingInfoWindow: false
           })
         }
         if(this.state.activeMarker.id != marker.id){
         this.setState({
           activeMarker: marker,
-          selectedPlace: props,
-          showingInfoWindow: true,
+          showingnewInfoWindow: true,
           mapCenter : props.position
         })
       }
-      }     
+      }   
+
+      onClose = ()=>{
+        this.setState({
+          showingInfoWindow: false,
+          showingnewInfoWindow: false
+        })
+      }
 
       handlePlaceMarkers = add =>{
         geocodeByAddress(add.address)
@@ -107,15 +128,8 @@ export class MapContainer extends Component {
       }
       
     render() {
-       let icon = '/park.svg'
       return (
           <div id = "google-map">
-          
-          <div id= 'Homebtn'>
-          <Link to="/">
-          <button>Home</button>
-          </Link>
-          </div>
           <PlacesAutocomplete
         value={this.state.address}
         onChange={this.handleChange}
@@ -137,14 +151,15 @@ export class MapContainer extends Component {
                   : 'suggestion-item';
                 // inline style for demonstration purpose
                 const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                  ? { backgroundColor: 'grey', cursor: 'pointer' }
+                  : { backgroundColor: 'black', cursor: 'pointer' };
                 return (
                   <div
                     {...getSuggestionItemProps(suggestion, {
                       className,
                       style,
-                    })}
+                      })
+                    }
                   >
                     <span>{suggestion.description}</span>
                   </div>
@@ -168,35 +183,51 @@ export class MapContainer extends Component {
             }}
             styles = {MapStyler}
             zoom = {16}
+            onClick = {this.onClose}
         >
-          <Marker id = 'destination'
-              title = ""
-              position = {{
-                lat : this.state.mapCenter.lat,
-                lng: this.state.mapCenter.lng
-              }}
-              onClick = {this.handleInfo}
 
+          <Marker id = {this.props.allPlaces.length + 1}
+              title = "destination"
+              name = {this.state.address}
+              position = {{
+                  lat : this.state.mapCenter.lat,
+                  lng: this.state.mapCenter.lng
+                }
+              }
+              onClick = {this.handlenewInfo}
           />
+
           <Marker id = 'home'
-          title = "You're here"
-            position = {{
-                lat : this.state.home.lat,
-                lng: this.state.home.lng
-              }}
-              />
+            title = "You're here"
+              position = {{
+                  lat : this.state.home.lat,
+                  lng: this.state.home.lng
+                }
+              } 
+          />
               
               <InfoWindow 
-              marker = {this.state.activeMarker}
-              visible = {this.state.showingInfoWindow}
-              onClose={this.onInfoWindowClose}>
-              <div>
-              <p>{this.state.activeMarker.name}</p>
-              <img src = '../components/test.jpg'/> 
-              <BrowserRouter>
-              <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>View More Information</button></Link></Route>
-              </BrowserRouter>
-              </div>
+                marker = {this.state.activeMarker}
+                visible = {this.state.showingInfoWindow}
+                onClose={this.onInfoWindowClose}>
+                <div>
+                  {/* <BrowserRouter>
+                    <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>View More Information</button></Link></Route>
+                  </BrowserRouter> */}
+                  <button>View More Information</button>
+                </div>
+              </InfoWindow>
+
+              <InfoWindow 
+                marker = {this.state.activeMarker}
+                visible = {this.state.showingnewInfoWindow}
+                onClose={this.onInfoWindowClose}>
+                <div>
+                  <p>Would you like to add this place to our records?</p>
+                  <BrowserRouter>
+                    <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>Add Place</button></Link></Route>
+                  </BrowserRouter>
+                </div>
               </InfoWindow>
 
           {this.state.place.map((each, index) =>{
@@ -205,18 +236,20 @@ export class MapContainer extends Component {
                 id = {each.id}
                 name = {each.name}
                 title = {each.name}
-                icon={each.category === 'parks' ? {url :'/parks.svg', scaledSize:  new this.props.google.maps.Size(60,60)} :
-                      each.category === 'food' ? {url :'/food.svg' , scaledSize:  new this.props.google.maps.Size(60,60)} :
-                      each.category === 'art' ?  {url : '/art.svg' , scaledSize:  new this.props.google.maps.Size(65,65)} : ''}
+                icon={each.category === 'parks' ? {url :'/svg_images/parks.svg', scaledSize:  new this.props.google.maps.Size(60,60)} :
+                      each.category === 'food' ? {url :'/svg_images/food.svg' , scaledSize:  new this.props.google.maps.Size(60,60)} :
+                      each.category === 'art' ?  {url : '/svg_images/art.svg' , scaledSize:  new this.props.google.maps.Size(65,65)} : ''}
                 position = {{
                   lat: each.position.lat,
                   lng: each.position.lng
-                }}
+                  }
+                }
                 onClick= {this.handleInfo}
               />
             )
             console.log(index)
-          })}           
+            })
+          }           
           
         </Map>
         </div>

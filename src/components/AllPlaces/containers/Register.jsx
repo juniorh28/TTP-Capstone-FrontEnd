@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import { authThunk,getUser,register,registerUser } from "../../../redux/users/users.actions";
 
+import login from './Login.css';
+import Buttons from './Buttons.css';
+
 class Register extends Component{
     constructor(props){
         super(props)
@@ -31,7 +34,7 @@ class Register extends Component{
         return(
             <div>
                 <h1>Register:</h1>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} id = 'form'>
                     <label>Email: 
                         <input name="email" type="email" value={this.state.email} onChange={this.handleChange} required/>
                     </label>
@@ -40,12 +43,12 @@ class Register extends Component{
                         <input name="password" type="password" value={this.state.password} onChange={this.handleChange} required/>
                     </label>
                     <br/>
-                    <button type="submit">Submit</button>
+                    <button type="submit" class = 'btn-all'>Submit</button>
                 </form>
                 <br/>
                 <h6>Or did you mean login?...</h6>
                 <Link to="/login">
-                    <button>Login</button>
+                    <button class = 'btn-all'>Login</button>
                 </Link>
             </div>
         )
