@@ -1,4 +1,4 @@
-import React from "react";
+/* import React from "react";
 
 const AuthFormView = props => {
   const { name, displayName, handleSubmit, error, handleChange, isLoggedIn, userEmail } = props;
@@ -28,4 +28,4 @@ const AuthFormView = props => {
   );
 };
 
-export default AuthFormView;
+export default AuthFormView; */

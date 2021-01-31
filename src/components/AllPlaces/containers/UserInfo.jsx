@@ -2,8 +2,7 @@ import React from "react"
 
  const UserInfo = (props) => (
     <div>
-        <img>{props.img}</img>
-        <div>{props.firstName} {props.lastName}</div>
+        <div>{props.email}</div>
     </div>
 )
 

@@ -30,7 +30,7 @@ class Register extends Component{
     render(){
         return(
             <div>
-                <h1>Register</h1>
+                <h1>Register:</h1>
                 <form onSubmit={this.handleSubmit}>
                     <label>Email: 
                         <input name="email" type="email" value={this.state.email} onChange={this.handleChange} required/>

@@ -1,7 +1,13 @@
 import axios from "axios";
 import UserActionTypes from "./users.types";
 const PORT = 8083
-const defaultUser = {}
+
+const defaultState = {
+  id: "",
+  email:"",
+  error: "",
+  isLoggedIn: false     
+}
 
 //ACTION CREATORS
 
