@@ -68,7 +68,7 @@ export class MapContainer extends Component {
 
       handleInfo = (props,marker) =>{
         console.log(marker)
-        if(this.state.showingInfoWindow == true && this.state.activeMarker.id != marker.id){
+        if(this.state.showingInfoWindow == true && this.state.activeMarker.id != marker.id || this.state.showingInfoWindow == false && this.state.activeMarker.id != marker.id){
           this.setState({
             showingInfoWindow: false,
             showingnewInfoWindow : false
@@ -85,7 +85,7 @@ export class MapContainer extends Component {
 
       handlenewInfo = (props,marker) =>{
         console.log(marker)
-        if(this.state.showingnewInfoWindow == true && this.state.activeMarker.id != marker.id){
+        if(this.state.showingnewInfoWindow == true && this.state.activeMarker.id != marker.id || this.state.showingnewInfoWindow == false && this.state.activeMarker.id != marker.id){
           this.setState({
             showingnewInfoWindow: false,
             showingInfoWindow: false
@@ -183,7 +183,6 @@ export class MapContainer extends Component {
             }}
             styles = {MapStyler}
             zoom = {16}
-            onClick = {this.onClose}
         >
 
           <Marker id = {this.props.allPlaces.length + 1}
@@ -211,9 +210,13 @@ export class MapContainer extends Component {
                 visible = {this.state.showingInfoWindow}
                 onClose={this.onInfoWindowClose}>
                 <div>
+                <span>
+                  <p>{this.state.activeMarker.name}</p>
+                  
                   <BrowserRouter>
                     <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>View More Information</button></Link></Route>
                   </BrowserRouter>
+                  </span>
                 </div>
               </InfoWindow>
 
@@ -222,10 +225,12 @@ export class MapContainer extends Component {
                 visible = {this.state.showingnewInfoWindow}
                 onClose={this.onInfoWindowClose}>
                 <div>
+                  <span><p>{this.state.activeMarker.name}</p>
                   <p>Would you like to add this place to our records?</p>
                   <BrowserRouter>
-                    <Route><Link to="/addnew"><button>Add Place</button></Link></Route>
+                    <Route><Link to="/addnew">Add Place</Link></Route>
                   </BrowserRouter>
+                  </span>
                 </div>
               </InfoWindow>
 
