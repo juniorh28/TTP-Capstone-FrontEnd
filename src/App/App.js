@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./App.css";
 import RoutesContainer from "../components/AllPlaces/routes/RoutesContainer";
 import Navbar from "../components/AllPlaces/containers/Navbar";
-import Buttons from "../components/AllPlaces/containers/Buttons";
 import Carousel from "../components/AllPlaces/containers/Carousel";
 
 class App extends Component {
@@ -17,7 +16,6 @@ class App extends Component {
           <br />
           <Carousel />
           <RoutesContainer />
-          <Buttons />
         </header>
       </div>
     );
