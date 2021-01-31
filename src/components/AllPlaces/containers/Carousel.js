@@ -28,8 +28,8 @@ export default class Carousel extends Component {
         const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
-        autoplaySpeed: 500,
+        speed: 2000,
+        autoplaySpeed: 2000,
         slidesToShow: 2,
         slidesToScroll: 1,
         autoplay: true,
