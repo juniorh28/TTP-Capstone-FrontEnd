@@ -211,10 +211,9 @@ export class MapContainer extends Component {
                 visible = {this.state.showingInfoWindow}
                 onClose={this.onInfoWindowClose}>
                 <div>
-                  {/* <BrowserRouter>
+                  <BrowserRouter>
                     <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>View More Information</button></Link></Route>
-                  </BrowserRouter> */}
-                  <button>View More Information</button>
+                  </BrowserRouter>
                 </div>
               </InfoWindow>
 
@@ -225,7 +224,7 @@ export class MapContainer extends Component {
                 <div>
                   <p>Would you like to add this place to our records?</p>
                   <BrowserRouter>
-                    <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>Add Place</button></Link></Route>
+                    <Route><Link to="/addnew"><button>Add Place</button></Link></Route>
                   </BrowserRouter>
                 </div>
               </InfoWindow>

@@ -1,5 +1,6 @@
 import React from "react";
 
+import Buttons from '../containers/Buttons.css';
 const CommentsView = (props) => {
   return (
     <div className="commentReview">
@@ -16,7 +17,7 @@ const CommentsView = (props) => {
             required
           ></textarea>
         </div>
-        <input
+        <input class = 'btn-all'
           className="btn btn-outline-secondary"
           type="submit"
           value="submit"

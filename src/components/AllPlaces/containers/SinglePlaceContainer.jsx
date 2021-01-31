@@ -31,9 +31,6 @@ class SinglePlaceContainer extends Component {
   render() {
     return (
       <div>
-        <Link to="/">
-          <button>Home</button>
-        </Link>
         <h3>{this.props.singlePlace.name}</h3>
         <img src={this.props.singlePlace.imageUrl} />
         <p>{this.props.singlePlace.description}</p>
