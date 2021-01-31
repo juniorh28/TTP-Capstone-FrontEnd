@@ -8,9 +8,6 @@ const AllPlacesView = (props) => {
   return (
     //open to styling//
     <div className="all-places">
-      <Link to="/">
-        <button>Home</button>
-      </Link>
       <h1>{props.id.toUpperCase()}</h1>
       {props.allPlaces.map((place) => (
         <div key={place.id}>
