@@ -1,18 +1,18 @@
-/* import React, { Component } from "react";
+import React, { Component } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 class HeaderContainer extends Component {
   render() {
     return (
       <div>
         <Navbar sticky="top" className="navbar">
-          <Navbar.Brand href="#/">Yorkify</Navbar.Brand>
+          <Navbar.Brand href="/">Yorkify</Navbar.Brand>
             <Nav className="justify-content-end">
                 <Nav.Item className="signup">
-                  <Nav.Link style={{ textDecoration: "none", color: "#8ffcff" }} href="#signUp">Sign Up</Nav.Link>
+                  <Nav.Link style={{ textDecoration: "none", color: "#8ffcff" }} href="/Register">Sign Up</Nav.Link>
                 </Nav.Item>
                 <Nav.Item className="login">
-                  <Nav.Link style={{ textDecoration: "none", color: "#8ffcff" }} href="#login">Login</Nav.Link>
+                  <Nav.Link style={{ textDecoration: "none", color: "#8ffcff" }} href="/login">Login</Nav.Link>
                 </Nav.Item>
             </Nav>
         </Navbar>
@@ -21,4 +21,4 @@ class HeaderContainer extends Component {
   }
 }
 
-export default HeaderContainer; */
+export default HeaderContainer; 
