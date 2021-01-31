@@ -1,29 +1,57 @@
-.navbar {
-  background-color: #130f40 !important;
-  background-image: linear-gradient(315deg, #130f40 0%, #000000 74%); 
-  height: 15vh;
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
 }
 
-.navbar-brand {
-  color: #8ffcff !important;
-  font-weight: bold;
-  font-size: 2.5em;
-  font-style: italic;
-  text-decoration: none;
+body{
+  background: #000;
+  color: #fff;
 }
 
-.signup {
-  font-size: 2em;
-  font-style: italic;
-  text-decoration: none;
-  margin-top: -3vh;
-  margin-left: 150vh;
+.CardDisplay {
+  display: flex;
+  height: 90vh;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
 }
 
-.login {
-  font-size: 2em;
-  font-style: italic;
+.button {
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  min-width: 96px;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid;
+  color: #fff;
+  -webkit-transition: 0.2s ease;
+  -moz-transition: 0.2s ease;
+  -o-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
+
+.all-places {
+  font-size: 14px;
+}
+
+h1 {
+  font-family: billabong, 'billabongregular';
+  text-align: center;
+  font-weight: 100;
+  font-size: 6rem;
+  margin: 2rem 0;
+  letter-spacing: -1px;
+  color:#fff;
   text-decoration: none;
-  margin-left: 135vh;
-  margin-top: -5vh;
 }

@@ -5,3 +5,4 @@ export { default as AllPlacesContainer } from "./AllPlacesContainer";
 export { default as AllPlacesByBoroughContainer } from "./AllPlacesByBoroughContainer";
 export { default as AllPlacesByCategoryContainer } from "./AllPlacesByCategoryContainer";
 export { default as HomeContainer } from "./HomeContainer";
+export { default as PlacesDisplay } from "./PlacesDisplay";
