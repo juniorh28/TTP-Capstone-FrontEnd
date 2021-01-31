@@ -4,8 +4,8 @@ import Tabs from "./Tabs";
 class PlacesDisplay extends Component {
   render() {
     return (
-      <div className="app">
-        <header className="app-header">
+      <div className="places">
+        <header className="places-header">
           <Tabs />
         </header>
       </div>
