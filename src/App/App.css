@@ -55,3 +55,14 @@ h1 {
   color:#fff;
   text-decoration: none;
 }
+
+.slick-slide {
+  margin-left: 10px;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.slick-list {
+  margin-left: -10px; /* px size of slide space */
+  width: calc(100% + 20px); /* add double the px size of slide space */
+}
