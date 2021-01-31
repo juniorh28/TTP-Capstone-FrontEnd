@@ -32,7 +32,9 @@ export const addComment = (payload) => ({
 export const fetchAllPlacesThunk = () => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/places");
+      const { data } = await axios.get(
+        "https://ttp-capstone-test.herokuapp.com/api/places"
+      );
       console.log("data", data);
       dispatch(fetchAllPlaces(data));
     } catch (error) {
@@ -45,7 +47,7 @@ export const fetchAllPlacesByBoroughThunk = (borough) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/places/boroughs/${borough}`
+        `https://ttp-capstone-test.herokuapp.com/api/places/boroughs/${borough}`
       );
       console.log("data", data);
       dispatch(fetchAllPlaces(data));
@@ -59,7 +61,7 @@ export const fetchAllPlacesByCategoryThunk = (category) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/places/categories/${category}`
+        `https://ttp-capstone-test.herokuapp.com/api/places/categories/${category}`
       );
       console.log("data", data);
       dispatch(fetchAllPlaces(data));
@@ -73,7 +75,7 @@ export const fetchSinglePlaceThunk = (id) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:8080/api/places/all/${id}`
+        `https://ttp-capstone-test.herokuapp.com/api/places/all/${id}`
       );
       console.log("data", data);
       dispatch(fetchSinglePlace(data));
@@ -87,7 +89,7 @@ export const addNewPlaceThunk = (obj) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.post(
-        `http://localhost:8080/api/places/newPlace`,
+        `https://ttp-capstone-test.herokuapp.com/api/places/newPlace`,
         obj
       );
       console.log("data", data);
@@ -102,7 +104,7 @@ export const addLikeThunk = (id) => {
   return async (dispatch) => {
     try {
       const data = await axios.put(
-        `http://localhost:8080/api/places/editLikes/${id}`
+        `https://ttp-capstone-test.herokuapp.com/api/places/editLikes/${id}`
       );
 
       dispatch(addLike(data));
@@ -120,7 +122,7 @@ export const addCommentThunk = (id, obj) => {
       obj.oldComments.push(obj.newComment);
       //puts updated comments in database
       const data = await axios.put(
-        `http://localhost:8080/api/places/addComment/${id}`,
+        `https://ttp-capstone-test.herokuapp.com/api/places/addComment/${id}`,
         obj.oldComments
       );
 
