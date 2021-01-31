@@ -5,11 +5,13 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
-import { Route, Switch, Link } from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 
 import HomeContainer from './HomeContainer';
 import { RandomPlacesView } from '../views';
 import MarkerCreator from './MarkerCreator';
+import MapStyler from '../views/MapStyler';
+import map from '../views/styles/map.css';
 
 require('dotenv').config();
 
@@ -18,27 +20,24 @@ export class MapContainer extends Component {
     constructor(props) {
         super(props);
         this.state = { address: '' ,
-            showingInfoWindow: false,
+            showingInfoWindow: true,
             activeMarker: {},
             selectedPlace: {},
-            newAddress : '',
             mapCenter : {},
             home: {},
-            place : []
+            len: 1,
+            place : [],
+            windowInfo: {}
         };
       }
     
       componentDidMount(){
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(this.defaultLocation)
-      }
-      {this.props.allPlaces.map(each =>{
-        {this.handlePlaceMarkers(each.address)}
-      })}
+      } 
       
     }
 
-    
     defaultLocation = (position)=>{
       let pos = {
         lat : position.coords.latitude,
@@ -48,6 +47,12 @@ export class MapContainer extends Component {
         home : pos,
         mapCenter : pos
       })
+      let allPlaces = this.props.allPlaces
+      console.log(allPlaces)
+      {this.props.allPlaces.map(each =>{
+        {this.handlePlaceMarkers(each)}
+        
+      })}
     } 
 
     handleChange = address => {
@@ -64,17 +69,25 @@ export class MapContainer extends Component {
           .catch(error => console.error('Error', error));
       };
 
-      handleInfo = position =>{
-        let pos = position
-        return(
-        <InfoWindow
-        position = {pos}>
-        </InfoWindow>
-        )
+      handleInfo = (props,marker) =>{
+        console.log(marker)
+        if(this.state.showingInfoWindow == true && this.state.activeMarker.id != marker.id){
+          this.setState({
+            showingInfoWindow: false
+          })
+        }
+        if(this.state.activeMarker.id != marker.id){
+        this.setState({
+          activeMarker: marker,
+          selectedPlace: props,
+          showingInfoWindow: true,
+          mapCenter : props.position
+        })
       }
+      }     
 
       handlePlaceMarkers = add =>{
-        geocodeByAddress(add)
+        geocodeByAddress(add.address)
           .then(results => getLatLng(results[0]))
           .then(latLng =>{
             let position = {
@@ -82,18 +95,19 @@ export class MapContainer extends Component {
               lng: latLng.lng
             }  
             let placeholder = this.state.place
-            placeholder.push(position)
+            let properties = {id: add.id, name: add.name, likes: add.numOfLikes, category: add.category, image: add.imageUrl, position: position}
+            placeholder.push(properties)
             this.setState({
               place : placeholder
             })
+            
             console.log(this.state.place)
           })
           .catch(error => console.error('Error', error));
       }
       
-    
     render() {
-        
+       let icon = '/park.svg'
       return (
           <div id = "google-map">
           
@@ -141,7 +155,9 @@ export class MapContainer extends Component {
         )}
       </PlacesAutocomplete>
       <div id = "map">
-        <Map google={this.props.google}
+      
+     
+        <Map google = {this.props.google}
             initialCenter ={{
                 lat : this.state.home.lat,
                 lng: this.state.home.lng
@@ -150,8 +166,8 @@ export class MapContainer extends Component {
                 lat : this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
             }}
-
-            style = {styles}
+            styles = {MapStyler}
+            zoom = {16}
         >
           <Marker id = 'destination'
               title = ""
@@ -159,28 +175,48 @@ export class MapContainer extends Component {
                 lat : this.state.mapCenter.lat,
                 lng: this.state.mapCenter.lng
               }}
-              onClick = {this.handleInfo(this.state.mapCenter)}
+              onClick = {this.handleInfo}
+
           />
           <Marker id = 'home'
-    
           title = "You're here"
-              position = {{
+            position = {{
                 lat : this.state.home.lat,
                 lng: this.state.home.lng
               }}
-          />
+              />
+              
+              <InfoWindow 
+              marker = {this.state.activeMarker}
+              visible = {this.state.showingInfoWindow}
+              onClose={this.onInfoWindowClose}>
+              <div>
+              <p>{this.state.activeMarker.name}</p>
+              <img src = '../components/test.jpg'/> 
+              <BrowserRouter>
+              <Route><Link to={`/all/${this.state.activeMarker.id}`}><button>View More Information</button></Link></Route>
+              </BrowserRouter>
+              </div>
+              </InfoWindow>
 
-          {this.state.place.map(each =>{
+          {this.state.place.map((each, index) =>{
             return(
               <Marker
+                id = {each.id}
+                name = {each.name}
+                title = {each.name}
+                icon={each.category === 'parks' ? {url :'/parks.svg', scaledSize:  new this.props.google.maps.Size(60,60)} :
+                      each.category === 'food' ? {url :'/food.svg' , scaledSize:  new this.props.google.maps.Size(60,60)} :
+                      each.category === 'art' ?  {url : '/art.svg' , scaledSize:  new this.props.google.maps.Size(65,65)} : ''}
                 position = {{
-                  lat: each.lat,
-                  lng: each.lng
+                  lat: each.position.lat,
+                  lng: each.position.lng
                 }}
+                onClick= {this.handleInfo}
               />
             )
-          })}
-              
+            console.log(index)
+          })}           
           
         </Map>
         </div>
@@ -190,10 +226,8 @@ export class MapContainer extends Component {
     }
   }
 
-  const styles = {
-    width : '100%',
-    height : '500px'
-  }
+  
+
 
  
 

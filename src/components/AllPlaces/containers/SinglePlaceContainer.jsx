@@ -2,16 +2,30 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 // import PropTypes from 'prop-types';
 import { connect } from "react-redux";
+import { HandThumbsUp } from "react-bootstrap-icons";
+import axios from "axios";
 
 import Map from "./Map";
 
-import { fetchSinglePlaceThunk } from "../../../redux/places/places.actions";
+import CommentsContainer from "../containers/CommentsContainer";
+import LikesContainer from "../containers/LikesContainer";
+
+import {
+  fetchSinglePlaceThunk,
+  addLikeThunk,
+  addCommentThunk,
+} from "../../../redux/places/places.actions";
 
 // Smart container;
 class SinglePlaceContainer extends Component {
   componentDidMount() {
     let id = this.props.match.params.id;
     this.props.fetchSinglePlace(id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.singlePlace.numOfLikes !== prevProps.singlePlace.numOfLikes)
+      this.props.fetchSinglePlace(this.props.match.params.id);
   }
 
   render() {
@@ -24,6 +38,20 @@ class SinglePlaceContainer extends Component {
         <img src={this.props.singlePlace.imageUrl} />
         <p>{this.props.singlePlace.description}</p>
         <p>{this.props.singlePlace.address}</p>
+
+        <p>Likes: {this.props.singlePlace.numOfLikes}</p>
+
+        <LikesContainer />
+
+        <p>Comments:</p>
+        {this.props.singlePlace.comments &&
+        this.props.singlePlace.comments.length > 0
+          ? this.props.singlePlace.comments.map((comment, key) => (
+              <p key={key}>{comment}</p>
+            ))
+          : "no comments yet"}
+
+        <CommentsContainer />
       </div>
     );
   }
@@ -41,6 +69,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchSinglePlace: (id) => dispatch(fetchSinglePlaceThunk(id)),
+    addLike: (id) => dispatch(addLikeThunk(id)),
+    // addComment: (id, obj) => dispatch(addCommentThunk(id, obj)),
   };
 };
 

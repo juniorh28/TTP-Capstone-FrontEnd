@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 
 import Form from "../../Form/Form";
-import { Login, Register } from '../containers';
 import {
   AllPlacesContainer,
   AllPlacesByBoroughContainer,
@@ -31,8 +30,6 @@ const RoutesView = (props) => {
               path="/boroughs/:id"
               component={AllPlacesByBoroughContainer}
             />
-            <Route exact path ="/login" component={Login} />
-            <Route exact path ="/register" component={Register} />
             <Route
               exact
               path="/categories/:id"
